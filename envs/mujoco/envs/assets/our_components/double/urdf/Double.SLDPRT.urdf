@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Double.SLDPRT">
+  <link
+    name="Double.SLDPRT">
+    <inertial>
+      <origin
+        xyz="1.0496E-20 1.41500137740288E-18 0.028636"
+        rpy="0 0 0" />
+      <mass
+        value="0.63046" />
+      <inertia
+        ixx="0.00056051"
+        ixy="-1.4456E-19"
+        ixz="-1.12420000000009E-22"
+        iyy="0.0013833"
+        iyz="-2.33776325745808E-21"
+        izz="0.0015745" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Double.SLDPRT/meshes/Double.SLDPRT.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://Double.SLDPRT/textures/" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="1.5707963267949 0 0" />
+      <geometry>
+        <mesh
+          filename="package://Double.SLDPRT/meshes/Double.SLDPRT.STL" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

@@ -1,0 +1,11 @@
+<mujoco model="double_peg_hole">
+<!--    <compiler angle="radian" meshdir="meshes" coordinate="local"/>-->
+<!--    <size njmax="500" nconmax="100" />-->
+<!--    <asset>-->
+<!--        <mesh name="Double.SLDPRT" file="Double.SLDPRT.STL" />-->
+<!--    </asset>-->
+    <body>
+<!--        <light pos="0 0 1000" castshadow="false"/>-->
+        <geom class="holes" quat="0.707107 0.707107 0 0" type="mesh" rgba="0.79216 0.81961 0.93333 0.2" mesh="Double.SLDPRT" />
+    </body>
+</mujoco>
