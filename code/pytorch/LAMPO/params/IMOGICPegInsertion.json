@@ -1,0 +1,65 @@
+{
+    "alg": "iMOGVIC",
+    "alg_options": {
+        "task_class": "MujocoEnv",
+		"n_cluster": 6,
+		"latent_dim": 10,
+		"n_features": 21,
+		"state_dim": 7,
+		"n_samples": 1000,
+        "stiffness_scale": 60,
+        "ratio": 6,
+        "reward_scale": 0.01
+    },
+    "env": "PercisionPegInsertionEnv",
+    "env_options": {
+        "frame_skip": 10,
+        "timestep": 0.01,
+        "time_limit": 6.0,
+//        "save_video": true,
+//        "video_path": "./results/3-video/peg-in-hole-vic.mp4",
+        "logarithmic_cost": false,
+        "quadratic_cost": true,
+        "quadratic_rot_cost": true,
+        "quadratic_pos_cost": true,
+        "hole_id": 35,
+        "max_episode_steps": 60,
+        "random_hole_file": "random_reachable_holes_small_randomness.npy",
+        "model_path": "full_peg_insertion_experiment_no_gravity_moving_hole_id=025.xml",
+        "use_rel_pos_err": true,
+        "use_ft_sensor": true,
+        "gravity": false,
+        "observe_joints": false,
+        "random_target": true,
+	    "contextual_policy": false,
+        "in_peg_frame": true,
+        "init_randomness": 0.00,
+        "sac_reward_scale": 100.0,
+        "controller": "iMOGVIC",
+        "controller_options": {
+            "model_root": "/home/zhimin/code/5_thu/rl-robotic-assembly-control/envs/gym_kuka_mujoco/envs/assets/",
+            "model_path": "full_peg_insertion_experiment_no_gravity_moving_hole_id=030.xml",
+            "pos_scale": 0.3,
+            "rot_scale": 0.1,
+            "stiffness": [4.0, 4.0, 0.5, 1.0, 1.0, 1.0],
+            "null_space_damping": 5,
+            "stiffness_high": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            "stiffness_low": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+            "stiffness_initial": [1.0, 0.8, 4, 4, 1, 3, 3, 1],
+            "num_waypoints": 3,
+            "context_dim": 7,
+            "latent_parameter_dim": 21,
+            "parameter_dim": 21,
+            "site_name": "peg_tip",
+            "controlled_joints": ["kuka_joint_1", "kuka_joint_2", "kuka_joint_3", "kuka_joint_4", "kuka_joint_5", "kuka_joint_6", "kuka_joint_7"],
+            "in_ee_frame": true
+        }
+    },
+    "info_keywords": [
+        "tip_distance",
+        "success"
+    ],
+    "learning_options": {
+        "total_timesteps": 500000
+    }
+}

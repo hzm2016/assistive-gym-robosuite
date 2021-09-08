@@ -1,0 +1,69 @@
+{
+    "env": "PybulletEnv",
+    "alg_options": {
+		"n_cluster": 3,
+		"latent_dim": 20,
+        "parameter_dim": 20,
+		"n_features": 20,
+		"state_dim": 7,
+        "context_dim": 7,
+        "action_dim": 7,
+		"n_samples": 1000,
+        "max_episode_steps": 100
+    },
+    "mujoco_options": {
+        "frame_skip": 10,
+        "render": false,
+        "stiff_scale": 60,
+        "ratio": 6,
+        "params_fixed": true
+    },
+    "alg": "iMOGVIC",
+    "controller_options": {
+        "model_root": false,
+        "model_path": "a_sawyer_test.xml",
+        "pos_scale": 0.3,
+        "rot_scale": 0.3,
+        "stiffness": [4.0, 4.0, 0.5, 1.0, 1.0, 1.0],
+        "null_space_damping": 5,
+        "stiffness_high": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        "stiffness_low": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+        "stiffness_initial": [1.0, 0.4, 0.4, 0.4, 0.4, 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "weight_initial": [1.0, 0.0, 0.0],
+        "num_waypoints": 3,
+        "latent_parameter_dim": 21,
+        "parameter_dim": 21,
+        "action_dim": 6,
+        "site_name": "ee_site",
+        "controlled_joints": ["robot0_right_j0", "robot0_right_j1", "robot0_right_j2", "robot0_right_j3", "robot0_right_j4", "robot0_right_j5", "robot0_right_j6"]
+    },
+    "env_options": {
+        "max_episode_steps": 200,
+        "timestep": 0.01,
+        "time_limit": 2.0,
+        "logarithmic_cost": false,
+        "quadratic_cost": true,
+        "quadratic_rot_cost": true,
+        "quadratic_pos_cost": true,
+        "hole_id": 35,
+        "random_hole_file": "random_reachable_holes_small_randomness.npy",
+        "model_path": "full_peg_insertion_experiment_no_gravity_moving_hole_id=025.xml",
+        "use_rel_pos_err": true,
+        "use_ft_sensor": true,
+        "gravity": false,
+        "observe_joints": false,
+        "random_target": true,
+	    "contextual_policy": false,
+        "in_peg_frame": true,
+        "init_randomness": 0.00,
+        "sac_reward_scale": 100.0
+    },
+    "info_keywords": [
+        "tip_distance",
+        "success"
+    ],
+    "learning_options": {
+        "total_timesteps": 500000
+    },
+    "policy_type": "MlpPolicy"
+}

@@ -1,0 +1,85 @@
+{
+    "alg_options": {
+        "task_class": "AssistiveDRL",
+		"n_cluster": 3,
+		"latent_dim": 10,
+        "parameter_dim": 21,
+		"n_features": 20,
+		"state_dim": 7,
+        "context_dim": 6,
+        "action_dim": 6,
+		"n_samples": 1000,
+        "max_episode_steps": 250
+    },
+    "mujoco_options": {
+        "frame_skip": 10,
+        "render": false,
+        "stiff_scale": 60,
+        "ratio": 6,
+        "params_fixed": true
+    },
+    "alg": "SAC",
+    "controller_options": {
+        "controller_name": "OSC_POSE",
+        "model_root": "/home/zhimin/code/5_thu/rl-robotic-assembly-control/envs/envs_assistive/assets/sawyer/",
+        "model_path": "sawyer_new.xml",
+        "pos_scale": 0.3,
+        "rot_scale": 0.3,
+        "stiffness": [4.0, 4.0, 0.5, 1.0, 1.0, 1.0],
+        "null_space_damping": 5,
+        "stiffness_high": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        "stiffness_low": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0],
+        "stiffness_initial": [1.0, 0.4, 0.4, 0.4, 0.4, 0.4, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "weight_initial": [1.0, 0.0, 0.0],
+        "num_waypoints": 3,
+        "latent_parameter_dim": 21,
+        "parameter_dim": 21,
+        "action_dim": 6,
+        "site_name": "ee_site",
+        "controlled_joints": ["right_j0", "right_j1", "right_j2", "right_j3", "right_j4", "right_j5", "right_j6"],
+        "obs_keys": ["robot", "robot_joint_angles"],
+        "input_max": 1,
+        "input_min": -1,
+        "output_max": [0.05, 0.05, 0.05, 0.5, 0.5, 0.5],
+        "output_min": [-0.05, -0.05, -0.05, -0.5, -0.5, -0.5],
+        "kp": 150,
+        "damping_ratio": 15,
+        "impedance_mode": "fixed",
+        "kp_limits": [10, 300],
+        "damping_ratio_limits": [0, 10],
+        "position_limits": null,
+        "orientation_limits": null,
+        "uncouple_pos_ori": true,
+        "control_delta": true,
+        "interpolation": null,
+        "ramp_ratio": 0.2
+    },
+    "env": "DrinkingSawyerHuman-v1",
+//    "env": "FeedingSawyerHuman-v1",
+    "render": false,
+    "env_options": {
+        "max_episode_steps":
+        {
+            "DrinkingSawyerHuman-v1": 250,
+            "FeedingSawyerHuman-v1": 200
+        },
+        "timestep": 0.01,
+        "init_randomness": 0.00,
+        "reward_scale": 100.0
+    },
+    "OSC_POSE":
+    {
+
+    },
+    "info_keywords": [
+        "tip_distance",
+        "success"
+    ],
+    "learning_options": {
+        "total_timesteps": 1000000
+    },
+    "actor_options": {
+
+    },
+    "policy_type": "MlpPolicy"
+}

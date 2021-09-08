@@ -1,0 +1,23 @@
+{
+    "batch_size": 300,
+    "context_kl_bound": 10.0,
+    "context_reg": 0.0001,
+    "data_augment": 1,
+    "date": "06/19/2021, 17:07:44",
+    "dense_reward": true,
+    "folder_name": "obstacle_2d_test_def_more_1",
+    "forward": true,
+    "id_start": -1,
+    "il_noise": 0.001,
+    "imitation_learning": 16500,
+    "kl_bound": 0.1,
+    "load": false,
+    "max_iter": 10,
+    "n_evaluations": 300,
+    "n_runs": 1,
+    "normalize": true,
+    "plot": false,
+    "save": false,
+    "slurm": false,
+    "task_name": "reacher2d_obstacle"
+}

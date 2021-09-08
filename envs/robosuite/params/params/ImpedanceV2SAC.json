@@ -1,0 +1,37 @@
+{
+    "actor_options": {
+    },
+    "alg": "SAC",
+    "env_options": {
+        "env": "Wipe"
+    },
+    "control_options": {
+        "type": "OSC_POSE",
+        "input_max": 1,
+        "input_min": -1,
+        "output_max": [0.05, 0.05, 0.05, 0.5, 0.5, 0.5],
+        "output_min": [-0.05, -0.05, -0.05, -0.5, -0.5, -0.5],
+        "kp": 150,
+        "damping_ratio": 1,
+        "impedance_mode": "fixed",
+        "kp_limits": [0, 300],
+        "damping_ratio_limits": [0, 10],
+        "position_limits": null,
+        "orientation_limits": null,
+        "uncouple_pos_ori": true,
+        "control_delta": true,
+        "interpolation": null,
+        "ramp_ratio": 0.2
+    },
+    "info_keywords": [
+        "tip_distance",
+        "success"
+    ],
+
+    "learning_options": {
+        "total_timesteps": 10000
+    },
+    "entropy_alpha": 0.02,
+    "n_env": 1,
+    "policy_type": "MlpPolicy"
+}

@@ -1,0 +1,162 @@
+{
+  "actor_options": {
+  },
+  "control_options": {
+    "type": "OSC_POSE",
+    "input_max": 1,
+    "input_min": -1,
+    "output_max": [
+      0.05,
+      0.05,
+      0.05,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "output_min": [
+      -0.05,
+      -0.05,
+      -0.05,
+      -0.5,
+      -0.5,
+      -0.5
+    ],
+    "kp": 150,
+    "damping_ratio": 1,
+    "impedance_mode": "fixed",
+    "kp_limits": [
+      10,
+      300
+    ],
+    "damping_ratio_limits": [
+      0,
+      10
+    ],
+    "position_limits": null,
+    "orientation_limits": null,
+    "uncouple_pos_ori": true,
+    "control_delta": true,
+    "interpolation": null,
+    "ramp_ratio": 0.2
+  },
+  "alg": "SAC",
+  "robot": "Panda",
+  "env": "PegInsertionEnv",
+  "env_options": {
+    "frame_skip": 10,
+    "timestep": 0.01,
+    "time_limit": 4.0,
+    "logarithmic_cost": false,
+    "quadratic_cost": true,
+    "quadratic_rot_cost": true,
+    "hole_id": 25,
+    "random_target": true,
+    "random_hole_file": "random_reachable_holes_small_randomness.npy",
+    "use_rel_pos_err": true,
+    "gravity": false,
+    "observe_joints": false,
+    "in_peg_frame": true,
+    "contextual_policy": true,
+    "init_randomness": 0.01,
+    "sac_reward_scale": 100.0,
+    "controller": "ImpedanceControllerV2",
+    "controller_options": {
+      "model_path": "full_peg_insertion_experiment_no_collision_no_gravity.xml",
+      "pos_scale": 0.3,
+      "rot_scale": 0.1,
+      "stiffness": [
+        2.0,
+        2.0,
+        2.0,
+        6.0,
+        6.0,
+        6.0
+      ],
+      "stiffness_high": [
+        4.0,
+        4.0,
+        4.0,
+        8.0,
+        8.0,
+        8.0
+      ],
+      "stiffness_low": [
+        0.5,
+        0.5,
+        0.5,
+        4.0,
+        4.0,
+        4.0
+      ],
+      "stiffness_initial": [
+        2.0,
+        2.0,
+        2.0,
+        6.0,
+        6.0,
+        6.0
+      ],
+      "context_dim": 4,
+      "latent_parameter_dim": 6,
+      "site_name": "peg_tip",
+      "in_ee_frame": true
+    }
+  },
+  "info_keywords": [
+    "tip_distance",
+    "success"
+  ],
+  "learning_options": {
+    "total_timesteps": 1000000
+  },
+  "entropy_alpha": 0.02,
+  "n_env": 1,
+  "policy_type": "MlpPolicy",
+  "algorithm": "SAC",
+  "algorithm_kwargs": {
+    "batch_size": 128,
+    "eval_max_path_length": 500,
+    "expl_max_path_length": 500,
+    "min_num_steps_before_training": 3300,
+    "num_epochs": 2000,
+    "num_eval_steps_per_epoch": 2500,
+    "num_expl_steps_per_train_loop": 2500,
+    "num_trains_per_train_loop": 1000
+  },
+  "eval_environment_kwargs": {
+    "control_freq": 20,
+    "controller": "OSC_POSE",
+    "env_name": "Wipe",
+    "hard_reset": false,
+    "horizon": 500,
+    "ignore_done": true,
+    "reward_scale": 1.0,
+    "robots": [
+      "Panda"
+    ]
+  },
+  "policy_kwargs": {
+    "hidden_sizes": [
+      256,
+      256
+    ]
+  },
+  "qf_kwargs": {
+    "hidden_sizes": [
+      256,
+      256
+    ]
+  },
+  "replay_buffer_size": 1000000,
+  "seed": 17,
+  "trainer_kwargs": {
+    "discount": 0.99,
+    "policy_lr": 0.001,
+    "qf_lr": 0.0005,
+    "reward_scale": 1.0,
+    "soft_target_tau": 0.005,
+    "target_update_period": 5,
+    "use_automatic_entropy_tuning": true
+  },
+  "version": "normal"
+}

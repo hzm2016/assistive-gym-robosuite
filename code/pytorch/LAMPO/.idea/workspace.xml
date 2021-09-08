@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b8299615-2ebc-40fa-be5c-8b3e2f05a181" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/models/SAC.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/models/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/models/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/params/RealisticPegInsertion:SAC.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/params/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/replay_buffer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/MPC.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/VisualMPC.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/make_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/optimizers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/qrisk.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/replay_memory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/sac.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../envs/abb/rl_methods/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../REPS/GPREPS.py" beforeDir="false" afterPath="$PROJECT_DIR$/../REPS/GPREPS.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/HRLAAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/HRLAAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/HRLAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/HRLAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/HRLACOP.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/HRLACOP.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/HRLLAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/HRLLAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/HRLSAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/HRLSAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/MATD3.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/MATD3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/SAAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/SAAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/SAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/SAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../methods/SHRLAAC.py" beforeDir="false" afterPath="$PROJECT_DIR$/../methods/SHRLAAC.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/GPREPS_real_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/GPREPS_real_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/HCPS_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/HCPS_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/RLVIC_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/RLVIC_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/mujoco_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/mujoco_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/real_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/real_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/recognition_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/recognition_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/sim_contextual_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/sim_contextual_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../utils/solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../utils/solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../envs/abb/controllers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../envs/abb/controllers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../envs/abb/env_abb_assembly.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../envs/abb/env_abb_assembly.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../envs/abb/experiment.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../envs/abb/experiment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../envs/abb/real_solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../envs/abb/real_solver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../envs/abb/run_real_exp_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../envs/abb/run_real_exp_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../envs/abb/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../envs/abb/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../results/result_analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/../../../results/result_analysis.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectId" id="1v4HuYHVnO1EcXRDH1zngD0EB1k" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b8299615-2ebc-40fa-be5c-8b3e2f05a181" name="Default Changelist" comment="" />
+      <created>1625814663838</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625814663838</updated>
+      <workItem from="1625814666207" duration="3035000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

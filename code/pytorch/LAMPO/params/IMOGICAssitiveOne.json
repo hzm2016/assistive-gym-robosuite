@@ -1,0 +1,84 @@
+{
+    "alg_options": {
+        "task_class": "AssistiveOnePointEnv",
+		"n_cluster": 3,
+		"latent_dim": 3,
+        "parameter_dim": 6,
+		"n_features": 6,
+		"state_dim": 7,
+        "context_dim": 7,
+        "action_dim": 6,
+		"n_samples": 1000,
+        "max_episode_steps": 300
+    },
+    "mujoco_options": {
+        "frame_skip": 10,
+        "render": false,
+        "stiff_scale": 250,
+        "ratio": 8,
+        "params_fixed": false
+    },
+    "alg": "iMOGVIC",
+    "controller_options": {
+        "model_root": "/home/zhimin/code/5_thu/rl-robotic-assembly-control/envs/envs_assistive/assets/sawyer/",
+        "model_path": "sawyer_new.xml",
+        "pos_scale": 0.3,
+        "rot_scale": 0.3,
+        "stiffness": [4.0, 4.0, 0.5, 1.0, 1.0, 1.0],
+        "null_space_damping": 10,
+        "stiffness_high": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        "stiffness_low": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2],
+//        "stiffness_high": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.02, 0.02, 0.02, 0.05, 0.05, 0.05],
+//        "stiffness_low": [0.2, 0.2, 0.2, 0.2, 0.2, 0.2, -0.02, -0.02, -0.02, -0.05, -0.05, -0.05],
+        "stiffness_initial": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+        "weight_initial": [0.0],
+        "num_waypoints": 1,
+        "latent_parameter_dim": 6,
+        "parameter_dim": 6,
+        "action_dim": 6,
+        "site_name": "ee_site",
+        "controlled_joints": ["right_j0", "right_j1", "right_j2", "right_j3", "right_j4", "right_j5", "right_j6"]
+    },
+//    "env": "DrinkingSawyerHuman-v1",
+    "env": "FeedingSawyerHuman-v1",
+    "env_options": {
+        "tool_delta_pos": {
+//            "DrinkingSawyerHuman-v1": [0.01, -0.065, -0.01],
+            "DrinkingSawyerHuman-v1": [0.0, 0.03, 0.01],
+            "FeedingSawyerHuman-v1": [0.0, -0.0, -0.00]
+        },
+        "tool_delta_ori": {
+            "DrinkingSawyerHuman-v1": [-1.4, -0.0, 0.0],
+            "FeedingSawyerHuman-v1": [0.0, -0.0, 0.0]
+//            "FeedingSawyerHuman-v1": [0.0, 0.0, -0.0]
+        },
+        "render": false,  //pybullet render or not
+        "max_episode_steps": 200,
+        "timestep": 0.01,
+        "time_limit": 2.0,
+        "logarithmic_cost": false,
+        "quadratic_cost": true,
+        "quadratic_rot_cost": true,
+        "quadratic_pos_cost": true,
+        "hole_id": 35,
+        "random_hole_file": "random_reachable_holes_small_randomness.npy",
+        "model_path": "full_peg_insertion_experiment_no_gravity_moving_hole_id=025.xml",
+        "use_rel_pos_err": true,
+        "use_ft_sensor": true,
+        "gravity": false,
+        "observe_joints": false,
+        "random_target": true,
+	    "contextual_policy": false,
+        "in_peg_frame": true,
+        "init_randomness": 0.00,
+        "sac_reward_scale": 100.0
+    },
+    "info_keywords": [
+        "tip_distance",
+        "success"
+    ],
+    "learning_options": {
+        "total_timesteps": 500000
+    },
+    "policy_type": "MlpPolicy"
+}

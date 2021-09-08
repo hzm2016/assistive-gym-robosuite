@@ -1,0 +1,21 @@
+{
+    "batch_size": 500,
+    "date": "06/19/2021, 15:42:58",
+    "dense_reward": true,
+    "folder_name": "il_size_4_dense",
+    "forgetting_rate": 1.0,
+    "forward": false,
+    "id_start": -1,
+    "il_noise": 0.03,
+    "imitation_learning": 1000,
+    "kl_bound": 0.2,
+    "load": false,
+    "max_iter": 10,
+    "n_evaluations": 500,
+    "n_runs": 20,
+    "not_dr": false,
+    "plot": false,
+    "save": false,
+    "slurm": false,
+    "task_name": "reach_target"
+}
