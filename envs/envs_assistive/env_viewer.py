@@ -335,7 +335,7 @@ def mujoco_eval(env_name):
 
     print("obs :", observation['robot_joint_angles'])
     
-    param_dir = '/home/zhimin/code/5_thu/rl-robotic-assembly-control/code/pytorch/LAMPO/params/'
+    param_dir = '/home/zhimin/code/8_nus/assistive-gym/code/pytorch/LAMPO/params'
     param_file = 'VICESAssitiveItch.json'
     
     param_file = os.path.join(param_dir, param_file)
@@ -506,7 +506,7 @@ def viewer_mujoco(env_name, params):
     
     while True:
         done = False
-        env.render()
+        # env.render()
         observation = env.reset()
         action = sample_action(env, coop)
         print(observation)
@@ -543,7 +543,7 @@ def viewer_pybullet(env_name, params):
     
     env.reset()
     while True:
-        # env.view_render()
+        env.view_render()
         env.step(np.array([0.0, 0.0, 1, 0.0, 0.0, 0.0]))
     
     
@@ -567,17 +567,17 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    param_dir = '/home/zhimin/code/5_thu/rl-robotic-assembly-control/code/pytorch/LAMPO/params/'
+    param_dir = '/home/zhimin/code/8_nus/assistive-gym/assistive_gym/params'
     # param_file = 'IMOGICAssitiveJaco.json'
-    param_file = 'VICESAssitive.json'
+    param_file = 'ImpedanceAssitance.json'
 
     param_file = os.path.join(param_dir, param_file)
     with open(param_file) as f:
         params = commentjson.load(f)
 
-    # mujoco_eval(args.env)
+    mujoco_eval(args.env)
     # viewer_mujoco(args.env, params)
-    viewer_pybullet(args.env, params)
+    # viewer_pybullet(args.env, params)
     
     # env = DrinkingSawyerHumanEnv()
     # done = False

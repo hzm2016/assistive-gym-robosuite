@@ -4,6 +4,7 @@ import numpy as np
 from ray.rllib.agents import ppo, sac
 from ray.tune.logger import pretty_print
 from numpngw import write_apng
+import imageio
 
 
 def setup_config(env, algo, coop=False, seed=0, extra_configs={}):
@@ -62,6 +63,7 @@ def load_policy(env, algo, env_name, policy_path=None, coop=False, seed=0, extra
 
 def make_env(env_name, coop=False, seed=1001):
     if not coop:
+        print("Here Set Up Environment !!!")
         env = gym.make('assistive_gym:'+env_name)
     else:
         module = importlib.import_module('assistive_gym.envs')
@@ -71,12 +73,16 @@ def make_env(env_name, coop=False, seed=1001):
     return env
 
 
-def train(env_name, algo, timesteps_total=1000000, save_dir='./trained_models/', load_policy_path='', coop=False, seed=0, extra_configs={}):
+def train(env_name, algo, timesteps_total=1000000, save_dir='./trained_models/', load_policy_path='',
+          coop=False, seed=0, extra_configs={}):
     ray.init(num_cpus=multiprocessing.cpu_count(), ignore_reinit_error=True, log_to_driver=False)
     env = make_env(env_name, coop)
     agent, checkpoint_path = load_policy(env, algo, env_name, load_policy_path, coop, seed, extra_configs)
     env.disconnect()
-
+    
+    training_reward = []
+    training_reward_min = []
+    training_reward_max = []
     timesteps = 0
     while timesteps < timesteps_total:
         result = agent.train()
@@ -87,13 +93,25 @@ def train(env_name, algo, timesteps_total=1000000, save_dir='./trained_models/',
             result['episode_reward_min'] /= 2
             result['episode_reward_max'] /= 2
         print(f"Iteration: {result['training_iteration']}, total timesteps: {result['timesteps_total']}, total time: {result['time_total_s']:.1f}, FPS: {result['timesteps_total']/result['time_total_s']:.1f}, mean reward: {result['episode_reward_mean']:.1f}, min/max reward: {result['episode_reward_min']:.1f}/{result['episode_reward_max']:.1f}")
-        sys.stdout.flush()
+        if np.isnan(result['episode_reward_mean']):
+            pass
+        else:
+            training_reward.append(result['episode_reward_mean'])
+            training_reward_min.append(result['episode_reward_min'])
+            training_reward_max.append(result['episode_reward_max'])
 
+        sys.stdout.flush()
+     
         # Delete the old saved policy
         if checkpoint_path is not None:
             shutil.rmtree(os.path.dirname(checkpoint_path), ignore_errors=True)
+        
         # Save the recently trained policy
         checkpoint_path = agent.save(os.path.join(save_dir, algo, env_name))
+    
+    np.save(os.path.join(save_dir, algo, env_name) + '/training_reward.npy', np.array(training_reward))
+    np.save(os.path.join(save_dir, algo, env_name) + '/training_reward_min.npy', np.array(training_reward_min))
+    np.save(os.path.join(save_dir, algo, env_name) + '/training_reward_max.npy', np.array(training_reward_max))
     return checkpoint_path
 
 
@@ -124,25 +142,33 @@ def render_policy(env, env_name, algo, policy_path, coop=False, colab=False, see
                 action = test_agent.compute_action(obs)
                 # Step the simulation forward using the action from our trained policy
                 obs, reward, done, info = env.step(action)
+            
             if colab:
                 # Capture (render) an image from the camera
                 img, depth = env.get_camera_image_depth()
                 frames.append(img)
+    
     env.disconnect()
     if colab:
         filename = 'output_%s.png' % env_name
-        write_apng(filename, frames, delay=100)
+        write_apng(filename, frames, delay=10)
         return filename
 
 
-def evaluate_policy(env_name, algo, policy_path, n_episodes=100, coop=False, seed=0, verbose=False, extra_configs={}):
+def evaluate_policy(env_name, algo, policy_path, n_episodes=100, coop=False, colab=True, seed=0, verbose=False, extra_configs={}):
     ray.init(num_cpus=multiprocessing.cpu_count(), ignore_reinit_error=True, log_to_driver=False)
     env = make_env(env_name, coop, seed=seed)
     test_agent, _ = load_policy(env, algo, env_name, policy_path, coop, seed, extra_configs)
 
+    if colab:
+        env.setup_camera(camera_eye=[0.5, -0.75, 1.5], camera_target=[-0.2, 0, 0.75], fov=60, camera_width=1920 // 4,
+                         camera_height=1080 // 4)
+    frames = []
+    
     rewards = []
     forces = []
     task_successes = []
+    env.render()
     for episode in range(n_episodes):
         obs = env.reset()
         done = False
@@ -162,6 +188,12 @@ def evaluate_policy(env_name, algo, policy_path, n_episodes=100, coop=False, see
             else:
                 action = test_agent.compute_action(obs)
                 obs, reward, done, info = env.step(action)
+
+            if colab:
+                # Capture (render) an image from the camera
+                img, depth = env.get_camera_image_depth()
+                frames.append(img)
+            
             reward_total += reward
             force_list.append(info['total_force_on_human'])
             task_success = info['task_success']
@@ -173,7 +205,14 @@ def evaluate_policy(env_name, algo, policy_path, n_episodes=100, coop=False, see
             print('Reward total: %.2f, mean force: %.2f, task success: %r' % (reward_total, np.mean(force_list), task_success))
         sys.stdout.flush()
     env.disconnect()
-
+    
+    if colab:
+        filename = 'output_%s.gif' % env_name
+        filenamepng = 'output_%s.png' % env_name
+        write_apng(filenamepng, frames, delay=10)
+        imageio.mimsave(filename, frames, duration=0.1)
+        return filename
+    
     print('\n', '-'*50, '\n')
     # print('Rewards:', rewards)
     print('Reward Mean:', np.mean(rewards))
@@ -189,21 +228,29 @@ def evaluate_policy(env_name, algo, policy_path, n_episodes=100, coop=False, see
     sys.stdout.flush()
 
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='RL for Assistive Gym')
-    parser.add_argument('--env', default='ScratchItchJaco-v1',
-                        help='Environment to train on (default: ScratchItchJaco-v0)')
+if __name__ == '__main__':  
+    parser = argparse.ArgumentParser(description='RL for Assistive Gym')  
+    
+    parser.add_argument('--env', default='DrinkingSawyer-v1',
+                        help='Environment to train on (default: ScratchItchJacoHuman-v0)')
+    # parser.add_argument('--env', default='FeedingSawyer-v1',
+    #                     help='Environment to train on (default: ScratchItchJacoHuman-v0)')
+    # parser.add_argument('--env', default='ScratchItchJaco-v1',
+    #                     help='Environment to train on (default: ScratchItchJacoHuman-v0)')
+    # parser.add_argument('--env', default='ScratchItchJacoHuman-v1',
+    #                     help='Environment to train on (default: ScratchItchJacoHuman-v0)')
+    
     parser.add_argument('--algo', default='ppo',
                         help='Reinforcement learning algorithm')
-    parser.add_argument('--seed', type=int, default=1,
+    parser.add_argument('--seed', type=int, default=1, 
                         help='Random seed (default: 1)')
-    parser.add_argument('--train', action='store_true', default=True,
+    parser.add_argument('--train', action='store_true', default=False,
                         help='Whether to train a new policy')
     parser.add_argument('--render', action='store_true', default=False,
                         help='Whether to render a single rollout of a trained policy')
-    parser.add_argument('--evaluate', action='store_true', default=False,
+    parser.add_argument('--evaluate', action='store_true', default=True,
                         help='Whether to evaluate a trained policy over n_episodes')
-    parser.add_argument('--train-timesteps', type=int, default=1000000,
+    parser.add_argument('--train-timesteps', type=int, default=2000000,
                         help='Number of simulation timesteps to train a policy (default: 1000000)')
     parser.add_argument('--save-dir', default='./trained_models/',
                         help='Directory to save trained policy in (default ./trained_models/)')
@@ -211,25 +258,33 @@ if __name__ == '__main__':
                         help='Path name to saved policy checkpoint (NOTE: Use this to continue training an existing policy, or to evaluate a trained policy)')
     parser.add_argument('--render-episodes', type=int, default=1,
                         help='Number of rendering episodes (default: 1)')
-    parser.add_argument('--eval-episodes', type=int, default=100,
+    parser.add_argument('--eval-episodes', type=int, default=1,
                         help='Number of evaluation episodes (default: 100)')
-    parser.add_argument('--colab', action='store_true', default=False,
+    parser.add_argument('--colab', action='store_true', default=True,
                         help='Whether rendering should generate an animated png rather than open a window (e.g. when using Google Colab)')
     parser.add_argument('--verbose', action='store_true', default=False,
-                        help='Whether to output more verbose prints')
-    args = parser.parse_args()
+                        help='Whether to output more verbose prints')  
+    args = parser.parse_args()  
 
     coop = ('Human' in args.env)
     checkpoint_path = None
 
     if args.train:
-        checkpoint_path = train(args.env, args.algo,
+        checkpoint_path = train(args.env,
+                                args.algo,
                                 timesteps_total=args.train_timesteps,
                                 save_dir=args.save_dir,
                                 load_policy_path=args.load_policy_path,
                                 coop=coop,
-                                seed=args.seed)
+                                seed=args.seed
+                                )
+        
     if args.render:
-        render_policy(None, args.env, args.algo, checkpoint_path if checkpoint_path is not None else args.load_policy_path, coop=coop, colab=args.colab, seed=args.seed, n_episodes=args.render_episodes)
+        render_policy(None, args.env, args.algo,
+                      checkpoint_path if checkpoint_path is not None else args.load_policy_path,
+                      coop=coop, colab=args.colab, seed=args.seed, n_episodes=args.render_episodes)
+    
     if args.evaluate:
-        evaluate_policy(args.env, args.algo, checkpoint_path if checkpoint_path is not None else args.load_policy_path, n_episodes=args.eval_episodes, coop=coop, seed=args.seed, verbose=args.verbose)
+        evaluate_policy(args.env, args.algo, checkpoint_path if checkpoint_path is not None else args.load_policy_path,
+                        n_episodes=args.eval_episodes, coop=coop, colab=True,
+                        seed=args.seed, verbose=args.verbose)

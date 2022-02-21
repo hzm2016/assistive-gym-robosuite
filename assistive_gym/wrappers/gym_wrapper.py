@@ -176,7 +176,7 @@ class GymWrapper(Wrapper, Env):
         if self.writer is not None:
             self.writer.flush()
             self.writer.close()
-
+            
     def save_buffer(self):
         # self.replay_buffer.save(self.logdir + "/saved_buffer")
         pass
